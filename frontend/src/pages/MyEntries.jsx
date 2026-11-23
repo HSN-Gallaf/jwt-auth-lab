@@ -22,8 +22,9 @@ const MyEntries = () => {
     <div>
       <h1>My Entries</h1>
       <p>{error}</p>
+
       {myEntries ? (
-        myEntries > 0 ? (
+        myEntries.length > 0 ? (
           myEntries.map((entry) => (
             <div key={entry._id}>
               <p>{entry.title}</p>
