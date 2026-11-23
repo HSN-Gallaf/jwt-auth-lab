@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { getMyEntries } from "../services/entriesService";
-
+import { Spin } from "antd";
 const MyEntries = () => {
   const [myEntries, setMyEntries] = useState([]);
+  const [error, setError] = useState(null);
 
   const loadMyEntries = async () => {
-    const response = await getMyEntries();
+    try {
+      const response = await getMyEntries();
 
-    setMyEntries(response);
+      setMyEntries(response);
+    } catch (err) {
+      setError(err.response.data.message);
+    }
   };
   useEffect(() => {
     loadMyEntries();
@@ -16,13 +21,20 @@ const MyEntries = () => {
   return (
     <div>
       <h1>My Entries</h1>
-      {myEntries
-        ? myEntries.map((entry) => (
+      <p>{error}</p>
+      {myEntries ? (
+        myEntries > 0 ? (
+          myEntries.map((entry) => (
             <div key={entry._id}>
               <p>{entry.title}</p>
             </div>
           ))
-        : null}
+        ) : (
+          <p>You Have No Entries</p>
+        )
+      ) : (
+        <Spin />
+      )}
     </div>
   );
 };
