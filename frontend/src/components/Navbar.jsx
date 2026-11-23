@@ -6,6 +6,8 @@ function Navbar() {
   return (
     <nav>
       <Link to="/">Homepage</Link>
+      <Link to={"/entries"}>Entry List</Link>
+
       {user ? (
         <>
           <Link to="/dashboard">Dashboard</Link>

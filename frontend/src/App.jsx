@@ -6,6 +6,7 @@ import SignInPage from "./pages/SigninPage";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyEntries from "./pages/MyEntries";
+import Entry from "./pages/Entry";
 function App() {
   return (
     <div>
@@ -30,6 +31,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/entries" element={<Entry />} />
       </Routes>
     </div>
   );

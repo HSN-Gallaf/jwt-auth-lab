@@ -4,7 +4,7 @@ const entryController = require("../controllers/entry.controller");
 
 router.post("/", verifyToken, entryController.createEntry);
 
-router.get("/", verifyToken, entryController.getPublicEntries);
+router.get("/", entryController.getPublicEntries);
 
 router.get("/my-entries", verifyToken, entryController.myEntries);
 
