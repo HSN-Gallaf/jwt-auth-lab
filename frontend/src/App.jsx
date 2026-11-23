@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MyEntries from "./pages/MyEntries";
 import Entry from "./pages/Entry";
 import CreateEntry from "./pages/CreateEntry";
+import EditEntry from "./pages/EditEntry";
 function App() {
   return (
     <div>
@@ -38,6 +39,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateEntry />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/entries/:entryId/edit"
+          element={
+            <ProtectedRoute>
+              <EditEntry />
             </ProtectedRoute>
           }
         />

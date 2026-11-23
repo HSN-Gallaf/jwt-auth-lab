@@ -73,6 +73,17 @@ const deleteEntry = async (req, res) => {
   }
 };
 
+const getOneEntry = async (req, res) => {
+  try {
+    const foundEntry = await Entry.findById(req.params.entryId);
+
+    res.status(200).json(foundEntry);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 const updateEntry = async (req, res) => {
   try {
     const foundEntry = await Entry.findOne({
@@ -110,5 +121,6 @@ module.exports = {
   getPublicEntries,
   myEntries,
   deleteEntry,
+  getOneEntry,
   updateEntry,
 };
