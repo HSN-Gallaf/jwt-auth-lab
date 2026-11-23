@@ -16,7 +16,16 @@ const createEntry = async (req, res) => {
 
     res.status(201).json(createdEntry);
   } catch (err) {
-    res.json(err);
+    if (err.name === "ValidationError")
+      return res.status(400).json({
+        message: err.message,
+      });
+
+    console.log(err);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
 };
 
@@ -24,12 +33,10 @@ const getPublicEntries = async (req, res) => {
   try {
     const publicEntries = await Entry.find({ isPublic: true });
 
-    if (publicEntries.length === 0)
-      return res.status(200).json({ message: "NO Public Entries" });
-
     res.status(200).json(publicEntries);
   } catch (err) {
-    res.json(err);
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -39,12 +46,10 @@ const myEntries = async (req, res) => {
       owner: req.user._id,
     });
 
-    if (myEntries.length === 0)
-      return res.status(200).json({ message: "You Have No Entries" });
-
     res.status(200).json(myEntries);
   } catch (err) {
-    res.json(err);
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -63,7 +68,8 @@ const deleteEntry = async (req, res) => {
 
     res.sendStatus(204);
   } catch (err) {
-    res.json(err);
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -87,12 +93,16 @@ const updateEntry = async (req, res) => {
         entryBody: entryBody,
         isPublic: isPublic,
       },
-      { returnDocument: "after" },
+      { returnDocument: "after", runValidator: true },
     );
 
     res.status(200).json(updatedEntry);
   } catch (err) {
-    res.json(err);
+    if (err.name === "ValidationError")
+      return res.status(400).json({ message: err.message });
+
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 module.exports = {
