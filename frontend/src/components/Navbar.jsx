@@ -12,6 +12,7 @@ function Navbar() {
         <>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/my-entries">My Entries</Link>
+          <Link to="/entries/create">Create Entry</Link>
           <button onClick={logout}>Sign Out</button>
         </>
       ) : (

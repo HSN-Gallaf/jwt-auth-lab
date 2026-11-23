@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyEntries from "./pages/MyEntries";
 import Entry from "./pages/Entry";
+import CreateEntry from "./pages/CreateEntry";
 function App() {
   return (
     <div>
@@ -32,6 +33,14 @@ function App() {
           }
         />
         <Route path="/entries" element={<Entry />} />
+        <Route
+          path="/entries/create"
+          element={
+            <ProtectedRoute>
+              <CreateEntry />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );
